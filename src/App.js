@@ -15,12 +15,10 @@ function App() {
         setLong(position.coords.longitude);
       });
 
-      await fetch(`${process.env.REACT_APP_API_URL}/weather/?lat=${lat}&lon=${long}&units=imperial&APPID=${process.env.REACT_APP_API_KEY}`)
-        .then(res => res.json())
-        .then(result => {
-          setData(result)
-          console.log(result);
-        });
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/weather/?lat=${lat}&lon=${long}&units=imperial&APPID=${process.env.REACT_APP_API_KEY}`);
+      const result = await res.json();
+      setData(result);
+      console.log(result);
     }
 
     fetchData();
@@ -33,7 +31,7 @@ function App() {
         <Weather weatherData={data}/>
       ): (
         <div>
-          <Dimmer active={true}>
+          <Dimmer active>
             <Loader>Loading..</Loader>
           </Dimmer>
         </div>
